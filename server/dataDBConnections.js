@@ -1,4 +1,5 @@
 import mysql from 'mysql2/promise'
+
 let db
 
 try {
@@ -6,7 +7,7 @@ try {
   host: 'localhost',
   user: 'root',
   password: 'Molly9677...',
-  database: 'schooldb'
+  database: 'coffee'
   })
   console.log("2 ✅ Connected to DB");
 }
