@@ -2,7 +2,8 @@ body {
 background:#f7f3ee;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.card{
+border-radius:12px;
+box-shadow:0 6px 18px rgba(0,0,0,0.08);
 }
+
