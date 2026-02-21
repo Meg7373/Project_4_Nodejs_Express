@@ -1,11 +1,8 @@
-const router=require("express").Router();
-const db=require("../dataDBConnections.js");
+import express from "express";
+const router = express.Router();
 
 router.get("/",(req,res)=>{
- db.query("SELECT * FROM categories",(err,data)=>{
-   if(err) return res.send(err);
-   res.json(data);
- });
+ res.send("working");
 });
 
-module.exports = router;
+export default router;

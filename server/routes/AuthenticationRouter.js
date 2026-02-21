@@ -1,34 +1,36 @@
-const router = require("express").Router();
-const db = require("../dataDBConnections.js");
-const bcrypt = require("bcrypt");
+import express from "express";
+import db from "../dataDBConnections.js";
+import bcrypt from "bcrypt";
+
+const router = express.Router();
 
 router.post("/register", async (req,res)=>{
- const {username,email,password}=req.body;
- const hash=await bcrypt.hash(password,10);
+ const {username,email,password} = req.body;
+ const hash = await bcrypt.hash(password,10);
 
- db.query(
- "INSERT INTO users(username,email,password) VALUES(?,?,?)",
- [username,email,hash],
- (err)=>{
-   if(err) return res.status(500).send(err);
-   res.send("Registered");
- });
+ await db.execute(
+   "INSERT INTO users(username,email,password) VALUES(?,?,?)",
+   [username,email,hash]
+ );
+
+ res.send("Registered");
 });
 
-router.post("/login",(req,res)=>{
- const {email,password}=req.body;
+router.post("/login", async (req,res)=>{
+ const {email,password} = req.body;
 
- db.query(
- "SELECT * FROM users WHERE email=?",
- [email],
- async(err,result)=>{
-   if(!result.length) return res.status(400).send("User not found");
+ const [rows] = await db.execute(
+   "SELECT * FROM users WHERE email=?",
+   [email]
+ );
 
-   const valid=await bcrypt.compare(password,result[0].password);
-   if(!valid) return res.status(400).send("Wrong password");
+ if(!rows.length) return res.status(400).send("User not found");
 
-   res.json(result[0]);
- });
+ const valid = await bcrypt.compare(password,rows[0].password);
+
+ if(!valid) return res.status(400).send("Wrong password");
+
+ res.json(rows[0]);
 });
 
-module.exports = router;
+export default router;
