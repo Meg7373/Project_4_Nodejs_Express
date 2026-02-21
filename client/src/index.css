@@ -4,8 +4,8 @@ font-family:system-ui;
 }
 
 .card {
-border-radius:12px;
-box-shadow:0 6px 18px rgba(0,0,0,0.08);
+border:none;
+border-radius:14px;
 }
 
 .btn-dark {
