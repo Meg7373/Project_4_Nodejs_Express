@@ -11,16 +11,27 @@ function logout(){
 
 return(
 
-<nav className="navbar navbar-dark bg-dark px-3">
+<nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow">
 
-<Link className="navbar-brand" to="/dashboard">
+<div className="container">
+
+<Link className="navbar-brand fw-bold" to="/dashboard">
 ☕ BeanTalk
 </Link>
 
-<button className="btn btn-outline-light btn-sm"
-onClick={logout}>
+<div>
+
+<Link className="btn btn-outline-light me-2" to="/dashboard">
+Dashboard
+</Link>
+
+<button className="btn btn-warning" onClick={logout}>
 Logout
 </button>
+
+</div>
+
+</div>
 
 </nav>
 

@@ -1,7 +1,7 @@
 import {useEffect,useState} from "react";
 import api from "../api";
 import {Link,useNavigate} from "react-router-dom";
-import Navbar from "../Components/Navbar.jsx";
+import Navbar from "../Components/Navbar.jsx";   // ⚠️ lowercase components
 
 export default function Dashboard(){
 
@@ -17,46 +17,48 @@ function logout(){
  nav("/");
 }
 
-<Navbar />
-
 return(
 
-    <div className="container mt-4">
+<>
+<Navbar/>
 
-    <div className="d-flex justify-content-between">
-    <h2>☕ BeanTalk Dashboard</h2>
-    <button className="btn btn-danger" onClick={logout}>Logout</button>
-    </div>
+<div className="container mt-4">
 
-    <hr/>
+<div className="d-flex justify-content-between">
+<h2>☕ BeanTalk Dashboard</h2>
+<button className="btn btn-danger" onClick={logout}>Logout</button>
+</div>
 
-    <h4>Coffee Topics</h4>
+<hr/>
 
-   <div className="row">
+<h4>Coffee Topics</h4>
 
-    {cats.map(c=>
+<div className="row">
 
-    <div className="col-md-4" key={c.id}>
-    <div className="card p-3 mb-3">
+{cats.map(c=>
 
-    <h5>{c.name}</h5>
+<div className="col-md-4" key={c.id}>
+<div className="card p-3 mb-3">
 
-    <Link className="btn btn-dark btn-sm"
-    to={"/category/"+c.id}>
-    Open
-    </Link>
+<h5>{c.name}</h5>
 
-    </div>
-    </div>
+<Link className="btn btn-dark btn-sm"
+to={"/category/"+c.id}>
+Open
+</Link>
 
-    )}
-    </div>
+</div>
+</div>
 
+)}
 
-    <button className="btn btn-success mb-3">
-    + Ask Coffee Question
-    </button>
+</div>
 
-    </div>
+<button className="btn btn-success mb-3">
++ Ask Coffee Question
+</button>
+
+</div>
+</>
 );
 }

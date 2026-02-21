@@ -22,8 +22,12 @@ async function login(e){
 }
 
 return(
-<div className="container mt-5" style={{maxWidth:400}}>
-<h2>☕ BeanTalk Login</h2>
+
+<div className="d-flex justify-content-center align-items-center vh-100">
+
+<div className="card p-4 shadow" style={{width:350}}>
+
+<h3 className="mb-3 text-center">☕ BeanTalk</h3>
 
 <form onSubmit={login}>
 <input className="form-control mb-2" placeholder="Email"
@@ -36,8 +40,6 @@ onChange={e=>setPassword(e.target.value)}/>
 <button className="btn btn-dark w-100">Login</button>
 </form>
 
-<Link to="/register">Create account</Link>
-
 </div>
-);
-}
+</div>
+)};
