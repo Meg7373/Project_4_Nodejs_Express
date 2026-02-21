@@ -32,13 +32,30 @@ return(
 
     <h4>Coffee Topics</h4>
 
+   <div className="row">
+
     {cats.map(c=>
 
-    <div key={c.id}>
-    <Link to={"/category/"+c.id}>{c.name}</Link>
+    <div className="col-md-4" key={c.id}>
+    <div className="card p-3 mb-3">
+
+    <h5>{c.name}</h5>
+
+    <Link className="btn btn-dark btn-sm"
+    to={"/category/"+c.id}>
+    Open
+    </Link>
+
+    </div>
     </div>
 
     )}
+    </div>
+
+
+    <button className="btn btn-success mb-3">
+    + Ask Coffee Question
+    </button>
 
     </div>
 );
