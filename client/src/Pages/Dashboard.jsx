@@ -9,8 +9,11 @@ const [cats,setCats]=useState([]);
 const nav=useNavigate();
 
 useEffect(()=>{
- api.get("/categories").then(r=>setCats(r.data));
+if(!localStorage.getItem("user")){
+ nav("/");
+}
 },[]);
+
 
 function logout(){
  localStorage.clear();
