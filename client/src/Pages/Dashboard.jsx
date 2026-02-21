@@ -1,7 +1,6 @@
 import {useEffect,useState} from "react";
 import api from "../api";
 import {Link,useNavigate} from "react-router-dom";
-import Navbar from "../Components/Navbar.jsx";   // ⚠️ lowercase components
 
 export default function Dashboard(){
 
@@ -9,32 +8,26 @@ const [cats,setCats]=useState([]);
 const nav=useNavigate();
 
 useEffect(()=>{
-if(!localStorage.getItem("user")){
- nav("/");
-}
+
+api.get("/categories")
+.then(r=>{
+console.log("CATEGORIES RESPONSE:",r.data);
+
+setCats(Array.isArray(r.data)? r.data : r.data.rows || []);
+
+});
+
 },[]);
 
+api.get("/categories").then(r=>setCats(r.data));
 
-function logout(){
- localStorage.clear();
- nav("/");
-}
+},[nav]);
 
 return(
 
-<>
-<Navbar/>
-
 <div className="container mt-4">
 
-<div className="d-flex justify-content-between">
-<h2>☕ BeanTalk Dashboard</h2>
-<button className="btn btn-danger" onClick={logout}>Logout</button>
-</div>
-
-<hr/>
-
-<h4>Coffee Topics</h4>
+<h2>Dashboard</h2>
 
 <div className="row">
 
@@ -57,11 +50,7 @@ Open
 
 </div>
 
-<button className="btn btn-success mb-3">
-+ Ask Coffee Question
-</button>
-
 </div>
-</>
+
 );
 }
