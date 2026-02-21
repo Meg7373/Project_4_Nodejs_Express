@@ -1,5 +1,6 @@
 body {
-background:#f7f3ee;
+background:linear-gradient(to right,#f7f3ee,#efe6dc);
+font-family:system-ui;
 }
 
 .card {
