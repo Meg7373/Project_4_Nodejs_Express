@@ -1,5 +1,5 @@
 const router=require("express").Router();
-const db=require("../config/db");
+const db=require("../dataDBConnections.js");
 
 router.post("/",(req,res)=>{
  const {title,content,user_id,category_id}=req.body;
@@ -19,4 +19,4 @@ router.get("/:cat",(req,res)=>{
  );
 });
 
-module.exports=router;
+module.exports = router;

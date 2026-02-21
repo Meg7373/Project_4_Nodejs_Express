@@ -1,15 +1,15 @@
-const router=require("express").Router();
-const db=require("dataDBConnections.js");
-const bcrypt=require("bcrypt");
+const router = require("express").Router();
+const db = require("../dataDBConnections.js");
+const bcrypt = require("bcrypt");
 
-router.post("/register",async(req,res)=>{
+router.post("/register", async (req,res)=>{
  const {username,email,password}=req.body;
  const hash=await bcrypt.hash(password,10);
 
  db.query(
  "INSERT INTO users(username,email,password) VALUES(?,?,?)",
  [username,email,hash],
- (err)=> {
+ (err)=>{
    if(err) return res.status(500).send(err);
    res.send("Registered");
  });
@@ -31,4 +31,4 @@ router.post("/login",(req,res)=>{
  });
 });
 
-module.exports=router;
+module.exports = router;
