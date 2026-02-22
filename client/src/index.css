@@ -1,18 +1,12 @@
-body {
-background:linear-gradient(to right,#f7f3ee,#efe6dc);
-font-family:system-ui;
+body{
+background:#f6f8fb;
+font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
 }
 
-.card {
-border:none;
+.card{
 border-radius:14px;
 }
 
-.btn-dark {
-background:#4b2e2e;
-border:none;
-}
-
-h2, h3 {
-color:#4b2e2e;
+.navbar{
+box-shadow:0 2px 12px rgba(0,0,0,0.08);
 }

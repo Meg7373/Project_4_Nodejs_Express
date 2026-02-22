@@ -10,13 +10,18 @@ const [body,setBody]=useState("");
 const nav=useNavigate();
 
 async function submit(e){
+
 e.preventDefault();
 
-await api.post("/questions",{title,body});
-
-alert("Question posted!");
+await api.post("/questions",{
+title,
+content: body,
+category_id:1,
+user_id:1
+});
 
 nav("/dashboard");
+
 }
 
 return(
@@ -28,11 +33,11 @@ return(
 <form onSubmit={submit}>
 
 <input className="form-control mb-2"
-placeholder="Question title"
+placeholder="Title"
 onChange={e=>setTitle(e.target.value)}/>
 
 <textarea className="form-control mb-2"
-placeholder="Describe your question"
+placeholder="Details"
 onChange={e=>setBody(e.target.value)}/>
 
 <button className="btn btn-dark">Post</button>
@@ -42,4 +47,5 @@ onChange={e=>setBody(e.target.value)}/>
 </div>
 
 );
+
 }

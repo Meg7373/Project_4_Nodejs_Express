@@ -1,47 +1,66 @@
-import {useEffect,useState} from "react";
+import { useEffect, useState } from "react";
 import api from "../api";
-import {Link} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-export default function Dashboard(){
+export default function Dashboard() {
 
-const [cats,setCats]=useState([]);
+  const [cats, setCats] = useState([]);
+  const nav = useNavigate();
 
-useEffect(()=>{
+  useEffect(() => {
 
-api.get("/categories")
-.then(r=>setCats(r.data))
-.catch(()=>setCats([]));
+    api.get("/categories")
+      .then(r => {
+        console.log("CATEGORIES:", r.data);
+        setCats(Array.isArray(r.data) ? r.data : []);
+      })
+      .catch(() => setCats([]));
 
-},[]);
+  }, []);
 
-return(
+  function logout() {
+    localStorage.clear();
+    nav("/");
+  }
 
-<div className="container mt-4">
+  return (
 
-<h2>Dashboard</h2>
+    <div className="container mt-4">
 
-<div className="row">
+      <div className="d-flex justify-content-between mb-3">
+        <h2>☕ Coffee Topics</h2>
 
-{Array.isArray(cats) && cats.map(c=>
+        <button className="btn btn-outline-dark" onClick={logout}>
+          Logout
+        </button>
+      </div>
 
-<div className="col-md-4" key={c.id}>
-<div className="card p-3 mb-3">
+      <div className="row">
 
-<h5>{c.name}</h5>
+        {cats.map(c => (
 
-<Link className="btn btn-dark btn-sm"
-to={"/category/"+c.id}>
-Open
-</Link>
+          <div className="col-md-4" key={c.id}>
 
-</div>
-</div>
+            <div className="card shadow-lg border-0 p-3 mb-4">
 
-)}
+              <h4>{c.name}</h4>
 
-</div>
+              <Link
+                className="btn btn-dark mt-2"
+                to={"/category/" + c.id}
+              >
+                Enter
+              </Link>
 
-</div>
+            </div>
 
-);
+          </div>
+
+        ))}
+
+      </div>
+
+    </div>
+
+  );
 }
