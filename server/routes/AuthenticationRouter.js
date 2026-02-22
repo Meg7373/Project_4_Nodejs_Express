@@ -1,39 +1,34 @@
-router.post("/login", async (req,res)=>{
+router.post("/register", async (req,res)=>{
 
-const {email,password} = req.body;
+const {username,email,password} = req.body;
 
 try{
 
-const [rows] = await db.query(
-"SELECT * FROM users WHERE email=?",
+// 🚨 CHECK DUPLICATE EMAIL
+const [existing] = await db.query(
+"SELECT id FROM users WHERE email=?",
 [email]
 );
 
-// 🚨 USER DOES NOT EXIST
-if(rows.length === 0){
-return res.status(401).json({message:"No account found with this email"});
+if(existing.length > 0){
+return res.status(400).json({message:"Email already registered"});
 }
 
-const user = rows[0];
+// HASH PASSWORD
+const hash = await bcrypt.hash(password,10);
 
-// CHECK PASSWORD
-const valid = await bcrypt.compare(password,user.password);
+// INSERT USER
+await db.query(
+"INSERT INTO users(username,email,password) VALUES(?,?,?)",
+[username,email,hash]
+);
 
-if(!valid){
-return res.status(401).json({message:"Incorrect password"});
-}
-
-// SUCCESS LOGIN
-res.json({
-id:user.id,
-username:user.username,
-email:user.email
-});
+res.send("Registered successfully");
 
 }catch(err){
 
 console.log(err);
-res.status(500).send("Login failed");
+res.status(500).send("Register failed");
 
 }
 
