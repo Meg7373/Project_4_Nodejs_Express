@@ -1,36 +1,40 @@
-import express from "express";
-import db from "../dataDBConnections.js";
-import bcrypt from "bcrypt";
-
-const router = express.Router();
-
-router.post("/register", async (req,res)=>{
- const {username,email,password} = req.body;
- const hash = await bcrypt.hash(password,10);
-
- await db.execute(
-   "INSERT INTO users(username,email,password) VALUES(?,?,?)",
-   [username,email,hash]
- );
-
- res.send("Registered");
-});
-
 router.post("/login", async (req,res)=>{
- const {email,password} = req.body;
 
- const [rows] = await db.execute(
-   "SELECT * FROM users WHERE email=?",
-   [email]
- );
+const {email,password} = req.body;
 
- if(!rows.length) return res.status(400).send("User not found");
+try{
 
- const valid = await bcrypt.compare(password,rows[0].password);
+const [rows] = await db.query(
+"SELECT * FROM users WHERE email=?",
+[email]
+);
 
- if(!valid) return res.status(400).send("Wrong password");
+// 🚨 USER DOES NOT EXIST
+if(rows.length === 0){
+return res.status(401).json({message:"No account found with this email"});
+}
 
- res.json(rows[0]);
+const user = rows[0];
+
+// CHECK PASSWORD
+const valid = await bcrypt.compare(password,user.password);
+
+if(!valid){
+return res.status(401).json({message:"Incorrect password"});
+}
+
+// SUCCESS LOGIN
+res.json({
+id:user.id,
+username:user.username,
+email:user.email
 });
 
-export default router;
+}catch(err){
+
+console.log(err);
+res.status(500).send("Login failed");
+
+}
+
+});
