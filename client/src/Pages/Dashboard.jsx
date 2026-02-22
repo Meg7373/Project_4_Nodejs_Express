@@ -1,27 +1,18 @@
 import {useEffect,useState} from "react";
 import api from "../api";
-import {Link,useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 export default function Dashboard(){
 
 const [cats,setCats]=useState([]);
-const nav=useNavigate();
 
 useEffect(()=>{
 
 api.get("/categories")
-.then(r=>{
-console.log("CATEGORIES RESPONSE:",r.data);
-
-setCats(Array.isArray(r.data)? r.data : r.data.rows || []);
-
-});
+.then(r=>setCats(r.data))
+.catch(()=>setCats([]));
 
 },[]);
-
-api.get("/categories").then(r=>setCats(r.data));
-
-},[nav]);
 
 return(
 
@@ -31,7 +22,7 @@ return(
 
 <div className="row">
 
-{cats.map(c=>
+{Array.isArray(cats) && cats.map(c=>
 
 <div className="col-md-4" key={c.id}>
 <div className="card p-3 mb-3">
