@@ -2,13 +2,11 @@ import {Link,useNavigate} from "react-router-dom";
 
 export default function Navbar(){
 
-const nav = useNavigate();
+const nav=useNavigate();
 
 function logout(){
-
 localStorage.clear();
 nav("/");
-
 }
 
 return(
@@ -18,7 +16,7 @@ return(
 <div className="container">
 
 <Link className="navbar-brand" to="/dashboard">
-☕ BeanTalk
+☕ CoffeeOverflow
 </Link>
 
 <div>
@@ -31,20 +29,18 @@ Dashboard
 Ask Question
 </Link>
 
-<Link className="btn btn-warning" to="/register">
+<Link className="btn btn-success me-2" to="/register">
 Register
 </Link>
 
-<button className="btn btn-danger ms-2" onClick={logout}>
+<button className="btn btn-danger" onClick={logout}>
 Logout
 </button>
 
 </div>
 
 </div>
-
 </nav>
 
 );
-
 }
