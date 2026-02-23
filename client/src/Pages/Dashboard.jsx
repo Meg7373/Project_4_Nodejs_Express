@@ -1,10 +1,11 @@
 import {useEffect,useState} from "react";
 import api from "../api";
-import {Link} from "react-router-dom";
+import {Link,useNavigate} from "react-router-dom";
 
 export default function Dashboard(){
 
 const [cats,setCats]=useState([]);
+const nav = useNavigate();
 
 useEffect(()=>{
 
@@ -17,11 +18,25 @@ setCats(Array.isArray(r.data)?r.data:[]);
 },[]);
 
 
+// ✅ LOGOUT FUNCTION
+function logout(){
+localStorage.removeItem("user");
+nav("/");
+}
+
+
 return(
 
 <div className="container mt-4">
 
-<h2 className="mb-4">☕ Coffee Topics</h2>
+{/* ✅ LOGOUT BUTTON */}
+<div className="d-flex justify-content-between mb-3">
+<h2>☕ Coffee Topics</h2>
+
+<button onClick={logout} className="btn btn-danger">
+Logout
+</button>
+</div>
 
 <div className="row">
 
@@ -46,4 +61,5 @@ Enter
 </div>
 
 );
+
 }

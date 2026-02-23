@@ -1,29 +1,33 @@
 import {useState} from "react";
-import {useNavigate,Link} from "react-router-dom";
 import api from "../api";
+import {useNavigate} from "react-router-dom";
 
 export default function Login(){
-
-const nav=useNavigate();
 
 const [email,setEmail]=useState("");
 const [password,setPassword]=useState("");
 const [error,setError]=useState("");
 
+const nav=useNavigate();
+
 async function login(e){
+
 e.preventDefault();
 
 try{
 
-const res = await api.post("/auth/login",{email,password});
+const res = await api.post("/auth/login",{
+email,
+password
+});
 
-localStorage.setItem("user",JSON.stringify(res.data));
+localStorage.setItem("user",res.data.id);
 
 nav("/dashboard");
 
-}catch(err){
+}catch{
 
-setError(err.response?.data?.message || "Login failed");
+setError("Invalid email or password");
 
 }
 
@@ -33,9 +37,13 @@ return(
 
 <div className="container mt-5" style={{maxWidth:400}}>
 
-<h2>Login</h2>
+<h2 className="mb-3">Login</h2>
 
-{error && <div className="alert alert-danger">{error}</div>}
+{error && (
+<div className="alert alert-danger">
+{error}
+</div>
+)}
 
 <form onSubmit={login}>
 
@@ -48,7 +56,7 @@ required
 
 <input
 type="password"
-className="form-control mb-2"
+className="form-control mb-3"
 placeholder="Password"
 onChange={e=>setPassword(e.target.value)}
 required
@@ -59,10 +67,6 @@ Login
 </button>
 
 </form>
-
-<div className="mt-3 text-center">
-<Link to="/register">Create account</Link>
-</div>
 
 </div>
 

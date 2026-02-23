@@ -1,27 +1,53 @@
-import {BrowserRouter,Routes,Route} from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-import Navbar from "./Components/Navbar";
-import Login from "./Pages/Login";
-import Register from "./Pages/Register";
-import Dashboard from "./Pages/Dashboard";
-import Ask from "./Pages/Ask";
-import Category from "./Pages/Category";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import Ask from "./pages/Ask";
+import Category from "./pages/Category";
+
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App(){
+
+const user = localStorage.getItem("user");
 
 return(
 
 <BrowserRouter>
 
-<Navbar/>
-
 <Routes>
 
-<Route path="/" element={<Login/>}/>
-<Route path="/register" element={<Register/>}/>
-<Route path="/dashboard" element={<Dashboard/>}/>
-<Route path="/ask" element={<Ask/>}/>
-<Route path="/category/:id" element={<Category/>}/>
+<Route 
+path="/" 
+element={user ? <Navigate to="/dashboard"/> : <Login/>}
+/>
+
+<Route 
+path="/dashboard" 
+element={
+<ProtectedRoute>
+<Dashboard/>
+</ProtectedRoute>
+}
+/>
+
+<Route 
+path="/ask" 
+element={
+<ProtectedRoute>
+<Ask/>
+</ProtectedRoute>
+}
+/>
+
+<Route 
+path="/category/:id" 
+element={
+<ProtectedRoute>
+<Category/>
+</ProtectedRoute>
+}
+/>
 
 </Routes>
 
