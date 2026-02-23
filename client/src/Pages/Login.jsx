@@ -1,6 +1,8 @@
 import {useState} from "react";
 import api from "../api";
 import {useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
+
 
 export default function Login(){
 
@@ -35,9 +37,14 @@ setError("Invalid email or password");
 
 return(
 
-<div className="container mt-5" style={{maxWidth:400}}>
+<div className="text-center mb-4">
 
-<h2 className="mb-3">Login</h2>
+<h1 style={{fontWeight:"700"}}> ☕ BeanTalk </h1>
+
+<p className="text-muted"> Coffee Discussion Community</p>
+
+
+<h2 className="mb-3">Welcome Back</h2>
 
 {error && (
 <div className="alert alert-danger">
@@ -65,6 +72,14 @@ required
 <button className="btn btn-dark w-100">
 Login
 </button>
+
+<div className="text-center mt-3">
+
+<Link to="/register">
+Create Account
+</Link>
+
+</div>
 
 </form>
 

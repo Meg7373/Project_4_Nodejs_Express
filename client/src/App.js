@@ -4,8 +4,8 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Ask from "./pages/Ask";
 import Category from "./pages/Category";
-
 import ProtectedRoute from "./components/ProtectedRoute";
+import Register from "./pages/Register";
 
 function App(){
 
@@ -21,6 +21,8 @@ return(
 path="/" 
 element={user ? <Navigate to="/dashboard"/> : <Login/>}
 />
+
+<Route path="/register" element={<Register/>}/>
 
 <Route 
 path="/dashboard" 

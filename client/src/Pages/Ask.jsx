@@ -1,6 +1,7 @@
 import {useState,useEffect} from "react";
 import api from "../api";
 import {useNavigate} from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 export default function Ask(){
 
@@ -59,6 +60,9 @@ alert("Posting failed — check backend");
 
 return(
 
+<>
+<Navbar/>
+
 <div className="container mt-4" style={{maxWidth:600}}>
 
 <h2 className="mb-3">Ask Coffee Question</h2>
@@ -104,7 +108,6 @@ Post Question
 </form>
 
 </div>
-
+</>
 );
-
 }

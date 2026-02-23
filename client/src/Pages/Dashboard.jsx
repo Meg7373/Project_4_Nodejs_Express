@@ -1,6 +1,7 @@
 import {useEffect,useState} from "react";
 import api from "../api";
 import {Link,useNavigate} from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 export default function Dashboard(){
 
@@ -26,16 +27,14 @@ nav("/");
 
 
 return(
+<>
+<Navbar/>
 
 <div className="container mt-4">
 
 {/* ✅ LOGOUT BUTTON */}
 <div className="d-flex justify-content-between mb-3">
 <h2>☕ Coffee Topics</h2>
-
-<button onClick={logout} className="btn btn-danger">
-Logout
-</button>
 </div>
 
 <div className="row">
@@ -59,7 +58,7 @@ Enter
 
 </div>
 </div>
-
+</>
 );
 
 }

@@ -1,6 +1,7 @@
 import {useEffect,useState} from "react";
 import {useParams,Link} from "react-router-dom";
 import api from "../api";
+import Navbar from "../components/Navbar";
 
 export default function Category(){
 
@@ -16,6 +17,9 @@ api.get("/questions/category/"+id)
 },[id]);
 
 return(
+
+<>
+<Navbar/>
 
 <div className="container mt-4">
 
@@ -43,6 +47,6 @@ No questions yet
 )}
 
 </div>
-
+</>
 );
 }
