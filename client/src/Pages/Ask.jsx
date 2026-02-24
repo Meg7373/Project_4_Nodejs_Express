@@ -1,105 +1,50 @@
-import {useState,useEffect} from "react";
+import {useNavigate,useSearchParams} from "react-router-dom";
+import {useState} from "react";
 import api from "../api";
-import {useNavigate} from "react-router-dom";
-import Navbar from "../components/Navbar";
 
 export default function Ask(){
 
 const nav=useNavigate();
+const [params]=useSearchParams();
+
+const category_id=params.get("cat");
 
 const [title,setTitle]=useState("");
 const [content,setContent]=useState("");
-const [category,setCategory]=useState("");
 
-const [cats,setCats]=useState([]);
-
-
-// LOAD CATEGORIES FOR DROPDOWN
-useEffect(()=>{
-
-api.get("/categories")
-.then(r=>{
-setCats(Array.isArray(r.data)?r.data:[]);
-});
-
-},[]);
-
-
-
-async function submit(e){
-
+async function send(e){
 e.preventDefault();
 
-if(!title || !content || !category){
-alert("Fill all fields");
-return;
-}
-
-try{
-
 await api.post("/questions",{
-title:title,
-content:content,
-category_id:category,
-user_id:1   // safe default for school project
+title,
+content,
+category_id
 });
 
-alert("✅ Question posted!");
-
 nav("/dashboard");
-
-}catch(err){
-
-console.log(err);
-alert("Posting failed — check backend");
-
 }
-
-}
-
 
 return(
 
-<>
-<Navbar/>
-
 <div className="container mt-4" style={{maxWidth:600}}>
 
-<h2 className="mb-3">Ask Coffee Question</h2>
+<h2>Ask Question</h2>
 
-<form onSubmit={submit}>
+<form onSubmit={send}>
 
 <input
 className="form-control mb-2"
-placeholder="Question title"
+placeholder="Title"
+value={title}
 onChange={e=>setTitle(e.target.value)}
 />
 
 <textarea
 className="form-control mb-3"
-placeholder="Describe your question"
+placeholder="Question"
+value={content}
 onChange={e=>setContent(e.target.value)}
 />
-
-
-{/* REAL CATEGORY DROPDOWN */}
-
-<select
-className="form-control mb-3"
-value={category}
-onChange={e=>setCategory(e.target.value)}
->
-
-<option value="">Choose Category</option>
-
-{cats.map(c=>
-<option key={c.id} value={c.id}>
-{c.name}
-</option>
-)}
-
-</select>
-
 
 <button className="btn btn-dark w-100">
 Post Question
@@ -108,6 +53,6 @@ Post Question
 </form>
 
 </div>
-</>
+
 );
 }

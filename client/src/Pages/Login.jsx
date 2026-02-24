@@ -1,56 +1,38 @@
+import {useNavigate,Link} from "react-router-dom";
 import {useState} from "react";
 import api from "../api";
-import {useNavigate} from "react-router-dom";
-import {Link} from "react-router-dom";
-
 
 export default function Login(){
 
-const [email,setEmail]=useState("");
-const [password,setPassword]=useState("");
-const [error,setError]=useState("");
-
 const nav=useNavigate();
 
-async function login(e){
+const [email,setEmail]=useState("");
+const [password,setPassword]=useState("");
+const [err,setErr]=useState("");
 
+async function login(e){
 e.preventDefault();
 
 try{
 
-const res = await api.post("/auth/login",{
-email,
-password
-});
+const r=await api.post("/auth/login",{email,password});
 
-localStorage.setItem("user",res.data.id);
-
+localStorage.setItem("user",r.data.id);
 nav("/dashboard");
 
 }catch{
-
-setError("Invalid email or password");
-
+setErr("Invalid login");
 }
 
 }
 
 return(
 
-<div className="text-center mb-4">
+<div className="container mt-5" style={{maxWidth:420}}>
 
-<h1 style={{fontWeight:"700"}}> ☕ BeanTalk </h1>
+<h1 className="text-center mb-4 fw-bold">☕ BeanTalk</h1>
 
-<p className="text-muted"> Coffee Discussion Community</p>
-
-
-<h2 className="mb-3">Welcome Back</h2>
-
-{error && (
-<div className="alert alert-danger">
-{error}
-</div>
-)}
+<h3 className="mb-3">Login</h3>
 
 <form onSubmit={login}>
 
@@ -58,28 +40,22 @@ return(
 className="form-control mb-2"
 placeholder="Email"
 onChange={e=>setEmail(e.target.value)}
-required
 />
 
 <input
 type="password"
-className="form-control mb-3"
+className="form-control mb-2"
 placeholder="Password"
 onChange={e=>setPassword(e.target.value)}
-required
 />
 
-<button className="btn btn-dark w-100">
+<button className="btn btn-dark w-100 mb-2">
 Login
 </button>
 
-<div className="text-center mt-3">
+{err && <div className="text-danger">{err}</div>}
 
-<Link to="/register">
-Create Account
-</Link>
-
-</div>
+<Link to="/register">Create account</Link>
 
 </form>
 

@@ -4,9 +4,6 @@ import db from "../dataDBConnections.js";
 const router = express.Router();
 
 
-// ======================
-// GET ALL QUESTIONS
-// ======================
 router.get("/", async (req,res)=>{
 
 try{
@@ -31,16 +28,19 @@ res.status(500).send("DB error");
 });
 
 
-// ======================
-// GET QUESTIONS BY CATEGORY
-// ======================
-router.get("/category/:id", async (req,res)=>{
+router.get("/:id", async(req,res)=>{
 
 try{
 
 const [rows] = await db.query(
-"SELECT * FROM questions WHERE category_id=? ORDER BY created_at DESC",
+
+`SELECT id,title,body 
+ FROM questions 
+ WHERE category_id=? 
+ ORDER BY id DESC`,
+
 [req.params.id]
+
 );
 
 res.json(rows);
@@ -48,16 +48,14 @@ res.json(rows);
 }catch(err){
 
 console.log(err);
-res.status(500).send("DB error");
+res.status(500).send("Failed");
 
 }
 
 });
 
 
-// ======================
-// CREATE QUESTION
-// ======================
+
 router.post("/", async (req,res)=>{
 
 const {title,content,category_id,user_id} = req.body;

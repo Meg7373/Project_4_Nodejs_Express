@@ -2,10 +2,9 @@ import {Link,useNavigate} from "react-router-dom";
 
 export default function Navbar(){
 
-const nav = useNavigate();
-const user = localStorage.getItem("user");
+const nav=useNavigate();
+const user=localStorage.getItem("user");
 
-// 🚫 DO NOT SHOW NAVBAR IF NOT LOGGED IN
 if(!user) return null;
 
 function logout(){
@@ -19,7 +18,7 @@ return(
 
 <div className="container">
 
-<Link className="navbar-brand" to="/dashboard">
+<Link className="navbar-brand fw-bold" to="/dashboard">
 ☕ BeanTalk
 </Link>
 
@@ -27,10 +26,6 @@ return(
 
 <Link className="btn btn-outline-light me-2" to="/dashboard">
 Home
-</Link>
-
-<Link className="btn btn-success me-2" to="/ask">
-Ask Question
 </Link>
 
 <button onClick={logout} className="btn btn-danger">
@@ -44,5 +39,4 @@ Logout
 </nav>
 
 );
-
 }

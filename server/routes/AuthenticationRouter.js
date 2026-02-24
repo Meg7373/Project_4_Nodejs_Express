@@ -4,8 +4,6 @@ import bcrypt from "bcrypt";
 
 const router = express.Router();
 
-
-// ================= REGISTER =================
 router.post("/register", async (req,res)=>{
 
 const {username,email,password} = req.body;
@@ -40,7 +38,6 @@ res.status(500).send("Register failed");
 });
 
 
-// ================= LOGIN =================
 router.post("/login", async (req,res)=>{
 
 const {email,password} = req.body;
