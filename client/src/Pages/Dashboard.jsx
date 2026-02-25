@@ -47,7 +47,7 @@ return(
 className="btn btn-dark mt-2"
 to={"/category/"+c.id}
 >
-Enter Discussion
+Enter the Discussion
 </Link>
 
 </div>
