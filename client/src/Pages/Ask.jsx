@@ -8,7 +8,7 @@ const nav = useNavigate();
 const [params] = useSearchParams();
 
 /* 🔥 GET CATEGORY FROM URL */
-const categoryId = params.get("cat");
+const categoryId = params.get("cat") || 1;
 
 /* FORM STATE */
 const [title,setTitle]=useState("");

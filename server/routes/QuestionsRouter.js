@@ -28,19 +28,16 @@ res.status(500).send("DB error");
 });
 
 
-router.get("/:id", async(req,res)=>{
+router.get("/category/:id", async(req,res)=>{
 
 try{
 
 const [rows] = await db.query(
-
-`SELECT id,title,body 
+`SELECT id,title,content,created_at 
  FROM questions 
  WHERE category_id=? 
- ORDER BY id DESC`,
-
+ ORDER BY created_at DESC`,
 [req.params.id]
-
 );
 
 res.json(rows);
