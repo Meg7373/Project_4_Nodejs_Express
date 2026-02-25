@@ -1,11 +1,11 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-import Navbar from "./components/Navbar";
+import Navbar from "../components/Navbar";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Ask from "./pages/Ask";
 import Category from "./pages/Category";
-import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 function App(){
 
