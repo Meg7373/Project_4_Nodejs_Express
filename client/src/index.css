@@ -1,13 +1,13 @@
-body{
+body {
 background:#f6f8fb;
 font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
 }
 
-.card{
+.card {
 border-radius:14px;
 }
 
-.navbar{
+.navbar {
 box-shadow:0 2px 12px rgba(0,0,0,0.08);
 }
 
@@ -15,29 +15,29 @@ h3 {
     text-align: center;
 }
 
-.topic-card{
+.topic-card {
 border-radius:18px;
 transition:all .25s ease;
 background:white;
 }
 
-.topic-card:hover{
+.topic-card:hover {
 transform:translateY(-4px);
 box-shadow:0 12px 30px rgba(0,0,0,.12);
 }
 
-.topic-title{
+.topic-title {
 font-size:26px;
 font-weight:700;
 }
 
-.topic-desc{
+.topic-desc {
 font-size:18px;
 color:#6c757d;
 line-height:1.5;
 }
 
-.big-btn{
+.big-btn {
 padding:12px 26px;
 border-radius:12px;
 font-weight:600;

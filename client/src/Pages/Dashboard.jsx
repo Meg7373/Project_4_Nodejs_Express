@@ -13,7 +13,6 @@ api.get("/categories")
 },[]);
 
 
-/* PROFESSOR SAFE DESCRIPTIONS */
 const descriptions={
 "Espresso":"Espresso basics, shots, extraction, and troubleshooting.",
 "Brewing Methods":"Learn pour-over, French press, AeroPress, and drip brewing.",

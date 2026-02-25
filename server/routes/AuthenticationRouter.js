@@ -27,7 +27,7 @@ const [result] = await db.query(
 );
 
 res.json({
-id: result.insertId   // 🔥 THIS IS THE FIX
+id: result.insertId
 });
 
 }catch(err){

@@ -15,7 +15,6 @@ return(
 
 <BrowserRouter>
 
-{/* ✅ NAVBAR RESTORED */}
 <Navbar/>
 
 <Routes>
