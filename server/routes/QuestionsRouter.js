@@ -60,22 +60,32 @@ router.post("/", async (req,res)=>{
 
 const {title,content,category_id,user_id} = req.body;
 
+if(!title || !content){
+return res.status(400).json({message:"Missing title or content"});
+}
+
 try{
 
 await db.query(
 "INSERT INTO questions(title,content,category_id,user_id) VALUES(?,?,?,?)",
-[title,content,category_id || 1,user_id || 1]
+[
+title,
+content,
+category_id || 1,
+user_id || 1
+]
 );
 
-res.send("Question posted");
+res.json({message:"Question posted"});
 
 }catch(err){
 
-console.log(err);
-res.status(500).send("Insert failed");
+console.log("QUESTION INSERT ERROR:",err);
+res.status(500).json({message:"Insert failed"});
 
 }
 
 });
+
 
 export default router;

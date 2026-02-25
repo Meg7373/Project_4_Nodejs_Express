@@ -5,33 +5,71 @@ import api from "../api";
 export default function Category(){
 
 const {id}=useParams();
-const [qs,setQs]=useState([]);
 
+const [questions,setQuestions]=useState([]);
+const [catName,setCatName]=useState("");
+
+// LOAD QUESTIONS FOR THIS CATEGORY
 useEffect(()=>{
+
 api.get("/questions/category/"+id)
-.then(r=>setQs(Array.isArray(r.data)?r.data:[]))
-.catch(()=>setQs([]));
+.then(r=>{
+setQuestions(Array.isArray(r.data)?r.data:[]);
+})
+.catch(()=>setQuestions([]));
+
+// OPTIONAL: load category name for header
+api.get("/categories")
+.then(r=>{
+const found=r.data.find(c=>String(c.id)===String(id));
+if(found) setCatName(found.name);
+});
+
 },[id]);
 
 return(
 
 <div className="container mt-4">
 
-<h2 className="mb-3">Questions</h2>
+<h2 className="mb-3">
+☕ {catName || "Coffee Topic"}
+</h2>
 
-<Link
-className="btn btn-dark mb-4"
-to={"/ask?cat="+id}
->
-Ask a Question
+{/* ASK BUTTON — ONLY ONE */}
+
+<Link to={"/ask?cat="+id} className="btn btn-dark">
+Ask Question
 </Link>
 
-{qs.map(q=>
 
-<div key={q.id} className="card shadow-sm p-3 mb-3">
 
-<h5>{q.title}</h5>
-<div className="text-muted">{q.content}</div>
+{/* NO QUESTIONS MESSAGE */}
+{questions.length===0 && (
+
+<div className="alert alert-light border">
+No questions yet. Be the first to ask!
+</div>
+
+)}
+
+{/* QUESTIONS LIST */}
+{questions.map(q=>
+
+<div key={q.id} className="card shadow-sm border-0 mb-3">
+
+<div className="card-body">
+
+<h5 className="fw-bold">{q.title}</h5>
+
+<p className="text-muted mb-1">
+{q.content}
+</p>
+
+<small className="text-secondary">
+Posted {new Date(q.created_at).toLocaleDateString()}
+</small>
+
+</div>
 
 </div>
 
@@ -40,4 +78,5 @@ Ask a Question
 </div>
 
 );
+
 }

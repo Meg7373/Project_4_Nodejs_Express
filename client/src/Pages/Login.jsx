@@ -8,58 +8,62 @@ const nav=useNavigate();
 
 const [email,setEmail]=useState("");
 const [password,setPassword]=useState("");
-const [err,setErr]=useState("");
 
 async function login(e){
+
 e.preventDefault();
 
 try{
 
-const r=await api.post("/auth/login",{email,password});
+const res=await api.post("/auth/login",{email,password});
 
-localStorage.setItem("user",r.data.id);
+localStorage.setItem("user",res.data.id);
+
 nav("/dashboard");
 
 }catch{
-setErr("Invalid login");
+
+alert("Invalid login");
+
 }
 
 }
 
 return(
 
-<div className="container mt-5" style={{maxWidth:420}}>
+<div className="container mt-5" style={{maxWidth:400}}>
 
-<h1 className="text-center mb-4 fw-bold">☕ BeanTalk</h1>
-
-<h3 className="mb-3">Login</h3>
+<h2 className="text-center mb-4">☕ BeanTalk</h2>
 
 <form onSubmit={login}>
 
 <input
 className="form-control mb-2"
 placeholder="Email"
+value={email}
 onChange={e=>setEmail(e.target.value)}
+required
 />
 
 <input
 type="password"
-className="form-control mb-2"
+className="form-control mb-3"
 placeholder="Password"
+value={password}
 onChange={e=>setPassword(e.target.value)}
+required
 />
 
-<button className="btn btn-dark w-100 mb-2">
-Login
-</button>
-
-{err && <div className="text-danger">{err}</div>}
-
-<Link to="/register">Create account</Link>
+<button className="btn btn-dark w-100">Login</button>
 
 </form>
+
+<div className="text-center mt-3">
+<Link to="/register">Create an account</Link>
+</div>
 
 </div>
 
 );
+
 }

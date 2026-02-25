@@ -4,46 +4,68 @@ import api from "../api";
 
 export default function Ask(){
 
-const nav=useNavigate();
-const [params]=useSearchParams();
+const nav = useNavigate();
+const [params] = useSearchParams();
 
-const category_id=params.get("cat");
+/* 🔥 GET CATEGORY FROM URL */
+const categoryId = params.get("cat");
 
+/* FORM STATE */
 const [title,setTitle]=useState("");
 const [content,setContent]=useState("");
 
-async function send(e){
+/* SUBMIT */
+async function submit(e){
+
 e.preventDefault();
+
+if(!categoryId){
+alert("Missing category");
+return;
+}
+
+try{
 
 await api.post("/questions",{
 title,
 content,
-category_id
+category_id:categoryId,
+user_id:localStorage.getItem("user")
 });
 
-nav("/dashboard");
+nav("/category/"+categoryId);
+
+}catch(err){
+
+console.log(err.response?.data);
+alert("Failed to post");
+
+}
+
 }
 
 return(
 
 <div className="container mt-4" style={{maxWidth:600}}>
 
-<h2>Ask Question</h2>
+<h2 className="mb-4">Ask Question</h2>
 
-<form onSubmit={send}>
+<form onSubmit={submit}>
 
 <input
 className="form-control mb-2"
-placeholder="Title"
+placeholder="Question title"
 value={title}
 onChange={e=>setTitle(e.target.value)}
+required
 />
 
 <textarea
 className="form-control mb-3"
-placeholder="Question"
+placeholder="Write your question..."
 value={content}
 onChange={e=>setContent(e.target.value)}
+required
 />
 
 <button className="btn btn-dark w-100">

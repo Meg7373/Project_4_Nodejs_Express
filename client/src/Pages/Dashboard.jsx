@@ -29,32 +29,26 @@ return(
 
 <h2 className="mb-4">☕ Coffee Topics</h2>
 
+<div className="row">
+
 {cats.map(c=>
 
-<div key={c.id} className="card topic-card shadow-lg p-4 mb-4">
+<div className="col-md-6" key={c.id}>
 
-<div className="row align-items-center">
+<div className="card shadow-lg border-0 p-4 mb-4">
 
-<div className="col-md-4">
+<h4 className="fw-bold">{c.name}</h4>
 
-<div className="topic-title">{c.name}</div>
+<p className="text-muted mt-2">
+{descriptions[c.name] || ""}
+</p>
 
 <Link
-className="btn btn-dark big-btn mt-3"
+className="btn btn-dark mt-2"
 to={"/category/"+c.id}
 >
-Enter Topic
+Enter Discussion
 </Link>
-
-</div>
-
-<div className="col-md-8">
-
-<div className="topic-desc">
-{descriptions[c.name] || "Coffee discussion topic"}
-</div>
-
-</div>
 
 </div>
 
@@ -64,5 +58,8 @@ Enter Topic
 
 </div>
 
+</div>
+
 );
+
 }

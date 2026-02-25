@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post("/register", async (req,res)=>{
 
-const {username,email,password} = req.body;
+const {email,password} = req.body;
 
 try{
 
@@ -16,17 +16,19 @@ const [existing] = await db.query(
 );
 
 if(existing.length>0){
-return res.status(400).json({message:"Email already registered"});
+return res.status(400).json({message:"Email exists"});
 }
 
 const hash = await bcrypt.hash(password,10);
 
-await db.query(
-"INSERT INTO users(username,email,password) VALUES(?,?,?)",
-[username,email,hash]
+const [result] = await db.query(
+"INSERT INTO users(email,password) VALUES(?,?)",
+[email,hash]
 );
 
-res.send("Registered successfully");
+res.json({
+id: result.insertId   // 🔥 THIS IS THE FIX
+});
 
 }catch(err){
 
@@ -38,33 +40,31 @@ res.status(500).send("Register failed");
 });
 
 
+
 router.post("/login", async (req,res)=>{
 
 const {email,password} = req.body;
 
 try{
 
-const [rows] = await db.query(
+const [rows]=await db.query(
 "SELECT * FROM users WHERE email=?",
 [email]
 );
 
 if(rows.length===0){
-return res.status(400).json({message:"User not found"});
+return res.status(401).json({message:"User not found"});
 }
 
-const user = rows[0];
+const user=rows[0];
 
-const match = await bcrypt.compare(password,user.password);
+const valid=await bcrypt.compare(password,user.password);
 
-if(!match){
-return res.status(400).json({message:"Wrong password"});
+if(!valid){
+return res.status(401).json({message:"Wrong password"});
 }
 
-res.json({
-id:user.id,
-username:user.username
-});
+res.json({id:user.id});
 
 }catch(err){
 
@@ -74,5 +74,6 @@ res.status(500).send("Login failed");
 }
 
 });
+
 
 export default router;
