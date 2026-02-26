@@ -29,14 +29,7 @@ The website application takes users to the 'Login' page so that they can login t
 ### Wireframes
 
 ### EER Diagram
-
-### API Endpoints (Assumed)
-* POST/auth/register - creates a new user account
-* POST/auth/login - checks email and password of current user
-* GET/categories - loads coffee topic list for dashboard/home page
-* POST/questions: posts new question under selected category
-* GET/questions/category/:id - loads all given questions for selected topic page
-* GET/questions/:id - load one question on the page
+![Beantalk Coffee Forum](/Images/EER%20Diagram.png)
 
 ### Database Schema
 - Users Table
@@ -111,6 +104,13 @@ The website application takes users to the 'Login' page so that they can login t
 
     );
 ```
+### API Endpoints (Assumed)
+* POST/auth/register - creates a new user account
+* POST/auth/login - checks email and password of current user
+* GET/categories - loads coffee topic list for dashboard/home page
+* POST/questions: posts new question under selected category
+* GET/questions/category/:id - loads all given questions for selected topic page
+* GET/questions/:id - load one question on the page
 
 ### Website Pages
 
