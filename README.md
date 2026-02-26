@@ -27,6 +27,7 @@ The website application takes users to the 'Login' page so that they can login t
 3. As a new stay-at-home parent, I want to use this coffee forum to know more about coffee machines and equipment so that I can make my own coffee at home.
 
 ### Wireframes
+![Login Page](/Images/LoginPage.drawio%20(1).png)
 
 ### EER Diagram
 ![Beantalk Coffee Forum](/Images/EER%20Diagram.png)
