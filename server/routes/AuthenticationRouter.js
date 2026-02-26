@@ -8,72 +8,67 @@ router.post("/register", async (req,res)=>{
 
 const {email,password} = req.body;
 
-try{
+    try{
 
-const [existing] = await db.query(
-"SELECT id FROM users WHERE email=?",
-[email]
-);
+        const [existing] = await db.query(
+            "SELECT id FROM users WHERE email=?",
+            [email]
+        );
 
-if(existing.length>0){
-return res.status(400).json({message:"Email exists"});
-}
+        if(existing.length>0){
+            return res.status(400).json({message:"Email exists"});
+        }
 
-const hash = await bcrypt.hash(password,10);
+        const hash = await bcrypt.hash(password,10);
 
-const [result] = await db.query(
-"INSERT INTO users(email,password) VALUES(?,?)",
-[email,hash]
-);
+        const [result] = await db.query(
+            "INSERT INTO users(email,password) VALUES(?,?)",
+            [email,hash]
+        );
 
-res.json({
-id: result.insertId
-});
+        res.json({
+            id: result.insertId
+        });
 
-}catch(err){
+    }catch(err){
 
-console.log(err);
-res.status(500).send("Register failed");
+        console.log(err);
+        res.status(500).send("Register failed");
 
-}
-
-});
-
-
+    }
+    });
 
 router.post("/login", async (req,res)=>{
 
-const {email,password} = req.body;
+    const {email,password} = req.body;
 
-try{
+    try{
 
-const [rows]=await db.query(
-"SELECT * FROM users WHERE email=?",
-[email]
-);
+        const [rows]=await db.query(
+            "SELECT * FROM users WHERE email=?",
+            [email]
+        );
 
-if(rows.length===0){
-return res.status(401).json({message:"User not found"});
-}
+        if(rows.length===0){
+            return res.status(401).json({message:"User not found"});
+        }
 
-const user=rows[0];
+        const user=rows[0];
 
-const valid=await bcrypt.compare(password,user.password);
+        const valid=await bcrypt.compare(password,user.password);
 
-if(!valid){
-return res.status(401).json({message:"Wrong password"});
-}
+        if(!valid){
+            return res.status(401).json({message:"Wrong password"});
+        }
 
-res.json({id:user.id});
+        res.json({id:user.id});
 
-}catch(err){
+    }catch(err){
 
-console.log(err);
-res.status(500).send("Login failed");
-
-}
+        console.log(err);
+        res.status(500).send("Login failed");
+    }
 
 });
-
 
 export default router;

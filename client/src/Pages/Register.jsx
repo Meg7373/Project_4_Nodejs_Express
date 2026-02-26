@@ -4,63 +4,56 @@ import api from "../api";
 
 export default function Register(){
 
-const nav=useNavigate();
+        const nav=useNavigate();
+        const [email,setEmail]=useState("");
+        const [password,setPassword]=useState("");
 
-const [email,setEmail]=useState("");
-const [password,setPassword]=useState("");
+        async function register(e){
+            e.preventDefault();
 
-async function register(e){
+        try{
 
-e.preventDefault();
+            const res=await api.post("/auth/register",{email,password});
+            localStorage.setItem("user",res.data.id);
+            nav("/dashboard");
 
-try{
+        }catch{
 
-const res=await api.post("/auth/register",{email,password});
+        alert("Register failed");
 
-localStorage.setItem("user",res.data.id);
+        }
+        }
 
-nav("/dashboard");
+    return(
 
-}catch{
+        <div className="container mt-5" style={{maxWidth:400}}>
 
-alert("Register failed");
+        <h2 className="text-center mb-4">Create Account</h2>
 
-}
+        <form onSubmit={register}>
 
-}
+            <input
+            className="form-control mb-2"
+            placeholder="Email"
+            value={email}
+            onChange={e=>setEmail(e.target.value)}
+            required
+            />
 
-return(
+            <input
+            type="password"
+            className="form-control mb-3"
+            placeholder="Password"
+            value={password}
+            onChange={e=>setPassword(e.target.value)}
+            required
+            />
 
-<div className="container mt-5" style={{maxWidth:400}}>
+            <button className="btn btn-dark w-100">
+            Register
+            </button>
 
-<h2 className="text-center mb-4">Create Account</h2>
-
-<form onSubmit={register}>
-
-<input
-className="form-control mb-2"
-placeholder="Email"
-value={email}
-onChange={e=>setEmail(e.target.value)}
-required
-/>
-
-<input
-type="password"
-className="form-control mb-3"
-placeholder="Password"
-value={password}
-onChange={e=>setPassword(e.target.value)}
-required
-/>
-
-<button className="btn btn-dark w-100">
-Register
-</button>
-
-</form>
-
-</div>
-
-);
+        </form>
+        </div>
+    );
 }

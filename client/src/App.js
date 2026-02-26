@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-
 import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
@@ -9,56 +8,51 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Register from './pages/Register'
 function App(){
 
-const user = localStorage.getItem("user");
+        const user = localStorage.getItem("user");
 
-return(
+    return(
 
-<BrowserRouter>
+        <BrowserRouter>
+            <Navbar/>
+            <Routes>
 
-<Navbar/>
+                <Route 
+                path="/" 
+                element={user ? <Navigate to="/dashboard"/> : <Login/>}
+                />
 
-<Routes>
+                <Route path="/register" element={<Register/>}/>
 
-<Route 
-path="/" 
-element={user ? <Navigate to="/dashboard"/> : <Login/>}
-/>
+                <Route 
+                path="/dashboard" 
+                element={
+                <ProtectedRoute>
+                <Dashboard/>
+                </ProtectedRoute>
+                }
+                />
 
-<Route path="/register" element={<Register/>}/>
+                <Route 
+                path="/ask" 
+                element={
+                <ProtectedRoute>
+                <Ask/>
+                </ProtectedRoute>
+                }
+                />
 
-<Route 
-path="/dashboard" 
-element={
-<ProtectedRoute>
-<Dashboard/>
-</ProtectedRoute>
-}
-/>
+                <Route 
+                path="/category/:id" 
+                element={
+                <ProtectedRoute>
+                <Category/>
+                </ProtectedRoute>
+                }
+                />
 
-<Route 
-path="/ask" 
-element={
-<ProtectedRoute>
-<Ask/>
-</ProtectedRoute>
-}
-/>
-
-<Route 
-path="/category/:id" 
-element={
-<ProtectedRoute>
-<Category/>
-</ProtectedRoute>
-}
-/>
-
-</Routes>
-
-</BrowserRouter>
-
-);
-
+            </Routes>
+        </BrowserRouter>
+    );
 }
 
 export default App;
