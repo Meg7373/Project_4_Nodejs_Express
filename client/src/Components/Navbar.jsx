@@ -2,41 +2,39 @@ import {Link,useNavigate} from "react-router-dom";
 
 export default function Navbar(){
 
-const nav=useNavigate();
-const user=localStorage.getItem("user");
+        const nav = useNavigate();
+        const user = localStorage.getItem("user");
 
-if(!user) return null;
+        if(!user) return null;
 
-function logout(){
-localStorage.removeItem("user");
-nav("/");
-}
+    function logout(){
+        localStorage.removeItem("user");
+        nav("/");
+    }
 
-return(
+    return(
 
-<nav className="navbar navbar-dark bg-dark navbar-expand-lg">
+        <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
+            <div className="container">
 
-<div className="container">
+                <Link className="navbar-brand" to="/dashboard">
+                ☕ BeanTalk
+                </Link>
 
-<Link className="navbar-brand fw-bold" to="/dashboard">
-☕ BeanTalk
-</Link>
+            <div>
 
-<div>
+                <Link className="btn btn-outline-light me-2" to="/dashboard">
+                Home
+                </Link>
 
-<Link className="btn btn-outline-light me-2" to="/dashboard">
-Home
-</Link>
+                <button onClick={logout} className="btn btn-danger">
+                Logout
+                </button>
 
-<button onClick={logout} className="btn btn-danger">
-Logout
-</button>
+            </div>
+            </div>
+        </nav>
 
-</div>
+    );
 
-</div>
-
-</nav>
-
-);
 }

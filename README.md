@@ -7,14 +7,14 @@ The overview of the project is to create a question and answer forum website. It
 The website application takes users to the 'Login' page so that they can login to utilize the website and/or 'Create an Account' if they are not members yet. Once logged in, the website offers a navigation bar so that users can access the 'Home' page as well as 'Logout' anytime. The 'Home' page offers six coffee topics/forums for users to look over. If they have a question about a given topic, they click 'Enter the Discussion' button. Then they are given the option to ask a question where they will type in a 'Question Title' and 'Write their question...', and then click the 'Post Question' button. Once posting a question, it will take the user back to see their question posted and at then they can click the 'Home' or 'Logout' button on the navigation bar.
 
 ### Technologies Utilized
+* MySQL Workbench
 * Node.js
 * Express
+* React/React Router
+* Javascript
 * HTML
 * CSS
-* Javascript
-* React
 * Bootstrap React
-* MySQL Workbench
 
 ### Ideas for Future Improvement
 1. Add a 'delete' button for each user if they decide they want to remove their question(s).
@@ -28,7 +28,7 @@ The website application takes users to the 'Login' page so that they can login t
 
 ### Wireframes
 
-### Website Pages
+### EER Diagram
 
 ### API Endpoints (Assumed)
 * POST/auth/register - creates a new user account
@@ -40,7 +40,7 @@ The website application takes users to the 'Login' page so that they can login t
 
 ### Database Schema
 - Users Table
-    
+```
     CREATE TABLE users(
 
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -54,8 +54,10 @@ The website application takes users to the 'Login' page so that they can login t
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
     );
+```
 
 - Categories Table
+```
 
     CREATE TABLE categories(
 
@@ -64,10 +66,10 @@ The website application takes users to the 'Login' page so that they can login t
     name VARCHAR(100) NOT NULL
 
     );
-
+```
 
 - Questions Table
-
+```
     CREATE TABLE questions(
 
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -87,10 +89,10 @@ The website application takes users to the 'Login' page so that they can login t
     FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE SET NULL
 
     );
-
+```
 
 - Answers Table
-
+```
     CREATE TABLE answers (
 
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -108,9 +110,9 @@ The website application takes users to the 'Login' page so that they can login t
     FOREIGN KEY (question_id) REFERENCES questions(id) ON DELETE CASCADE
 
     );
+```
+
+### Website Pages
 
 
-### Meaghann Wallace
-
-### LinkedIn Profile Link:
-* www.linkedin.com/in/meaghann-wallace
+### Meaghann Wallace LinkedIn: www.linkedin.com/in/meaghann-wallace

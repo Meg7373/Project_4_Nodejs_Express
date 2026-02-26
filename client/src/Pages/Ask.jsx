@@ -4,74 +4,72 @@ import api from "../api";
 
 export default function Ask(){
 
-const nav = useNavigate();
-const [params] = useSearchParams();
+        const nav = useNavigate();
+        const [params] = useSearchParams();
+        const categoryId = params.get("cat") || 1;
+        const [title,setTitle]=useState("");
+        const [content,setContent]=useState("");
 
-const categoryId = params.get("cat") || 1;
+    async function submit(e){
 
-const [title,setTitle]=useState("");
-const [content,setContent]=useState("");
+        e.preventDefault();
 
-async function submit(e){
+        if(!categoryId){
+            alert("Missing category");
+        return;
+        }
 
-e.preventDefault();
+    try{
 
-if(!categoryId){
-alert("Missing category");
-return;
-}
+        await api.post("/questions",{
+        title,
+        content,
+        category_id:categoryId,
+        user_id:localStorage.getItem("user")
+        });
 
-try{
+        nav("/category/"+categoryId);
 
-await api.post("/questions",{
-title,
-content,
-category_id:categoryId,
-user_id:localStorage.getItem("user")
-});
+        }catch(err){
 
-nav("/category/"+categoryId);
+        console.log(err.response?.data);
+            alert("Failed to post");
 
-}catch(err){
+        }
 
-console.log(err.response?.data);
-alert("Failed to post");
+        }
 
-}
+    return(
 
-}
+        <div className="container mt-4" style={{maxWidth:600}}>
 
-return(
+            <h2 className="mb-4">Ask a Question</h2>
 
-<div className="container mt-4" style={{maxWidth:600}}>
+            <form onSubmit={submit}>
 
-<h2 className="mb-4">Ask a Question</h2>
+                <input
+                className="form-control mb-2"
+                placeholder="Question title"
+                value={title}
+                onChange={e=>setTitle(e.target.value)}
+                required
+                />
 
-<form onSubmit={submit}>
+                <textarea
+                className="form-control mb-3"
+                placeholder="Write your question..."
+                value={content}
+                onChange={e=>setContent(e.target.value)}
+                required
+                />
 
-<input
-className="form-control mb-2"
-placeholder="Question title"
-value={title}
-onChange={e=>setTitle(e.target.value)}
-required
-/>
+                <button className="btn btn-dark w-100">
+                Post Your Question
+                </button>
 
-<textarea
-className="form-control mb-3"
-placeholder="Write your question..."
-value={content}
-onChange={e=>setContent(e.target.value)}
-required
-/>
+            </form>
 
-<button className="btn btn-dark w-100">
-Post Your Question
-</button>
+        </div>
 
-</form>
-
-</div>
-
-);
+    );
 }
