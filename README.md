@@ -28,6 +28,10 @@ The website application takes users to the 'Login' page so that they can login t
 
 ### Wireframes
 ![Login Page](/Images/LoginPage.drawio%20(1).png)
+![Create an Account Page](/Images/CreateAccount.drawio.png)
+![Home/Dashboard Page](/Images/Home_DashboardPage.drawio.png)
+![Coffee Topic Page](/Images/CoffeeTopicPage.drawio.png)
+![Question Page](/Images/QuestionPage.drawio.png)
 
 ### EER Diagram
 ![Beantalk Coffee Forum](/Images/EER%20Diagram.png)
@@ -114,6 +118,11 @@ The website application takes users to the 'Login' page so that they can login t
 * GET/questions/:id - load one question on the page
 
 ### Website Pages
+![Login Page](/Images/LoginPage.png)
+![Create an Account Page](/Images/CreateAnAccountPage.png)
+![Home/Dashboard Page](/Images/Home:DashboardPage.png)
+![Coffee Topic Page](/Images/CoffeeTopicPage.png)
+![Question Page](/Images/QuestionPage.png)
 
 
 ### Meaghann Wallace LinkedIn: www.linkedin.com/in/meaghann-wallace
