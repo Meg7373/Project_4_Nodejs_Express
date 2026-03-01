@@ -64,6 +64,20 @@ The website application takes users to the 'Login' page so that they can login t
     name VARCHAR(100) NOT NULL
 
     );
+
+    INSERT INTO categories (name) VALUES
+
+    ('Beans & Roasts'),
+
+    ('Brewing Methods'),
+
+    ('Coffee Machines'),
+
+    ('Equipment'),
+
+    ('Espresso'),
+    
+    ('Latte Art');
 ```
 
 - Questions Table
