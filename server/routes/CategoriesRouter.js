@@ -8,7 +8,7 @@ router.get("/", async(req,res)=>{
     try{
 
         const [rows] = await db.query(
-            "SELECT id,name,description FROM categories ORDER BY name"
+            "SELECT id, name FROM categories ORDER BY name"
         );
 
         res.json(rows);
